@@ -14,6 +14,8 @@
 		0D8C0E721C101A9A00C164A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C0E701C101A9A00C164A5 /* LaunchScreen.storyboard */; };
 		0D8C0E7D1C101A9A00C164A5 /* Swift_CodebaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E7C1C101A9A00C164A5 /* Swift_CodebaseTests.swift */; };
 		0D8C0E881C101A9B00C164A5 /* Swift_CodebaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E871C101A9A00C164A5 /* Swift_CodebaseUITests.swift */; };
+		0D8C0E961C101AF500C164A5 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E951C101AF500C164A5 /* Readme.md */; settings = {ASSET_TAGS = (); }; };
+		0D8C0E981C101B8C00C164A5 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E971C101B8C00C164A5 /* FileHelper.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		0D8C0E831C101A9A00C164A5 /* Swift_CodebaseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Swift_CodebaseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8C0E871C101A9A00C164A5 /* Swift_CodebaseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_CodebaseUITests.swift; sourceTree = "<group>"; };
 		0D8C0E891C101A9B00C164A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D8C0E951C101AF500C164A5 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		0D8C0E971C101B8C00C164A5 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		0D8C0E5B1C101A9900C164A5 = {
 			isa = PBXGroup;
 			children = (
+				0D8C0E951C101AF500C164A5 /* Readme.md */,
 				0D8C0E661C101A9A00C164A5 /* Swift_Codebase */,
 				0D8C0E7B1C101A9A00C164A5 /* Swift_CodebaseTests */,
 				0D8C0E861C101A9A00C164A5 /* Swift_CodebaseUITests */,
@@ -99,6 +104,7 @@
 			children = (
 				0D8C0E671C101A9A00C164A5 /* AppDelegate.swift */,
 				0D8C0E691C101A9A00C164A5 /* ViewController.swift */,
+				0D8C0E971C101B8C00C164A5 /* FileHelper.swift */,
 				0D8C0E6B1C101A9A00C164A5 /* Main.storyboard */,
 				0D8C0E6E1C101A9A00C164A5 /* Assets.xcassets */,
 				0D8C0E701C101A9A00C164A5 /* LaunchScreen.storyboard */,
@@ -257,6 +263,8 @@
 			files = (
 				0D8C0E6A1C101A9A00C164A5 /* ViewController.swift in Sources */,
 				0D8C0E681C101A9A00C164A5 /* AppDelegate.swift in Sources */,
+				0D8C0E961C101AF500C164A5 /* Readme.md in Sources */,
+				0D8C0E981C101B8C00C164A5 /* FileHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
