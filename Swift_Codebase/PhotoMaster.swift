@@ -9,6 +9,23 @@
 
 import UIKit
 
+
+/**
+Usage example:
+
+```swift
+PhotoMaster.master.registerToMyViewController(self)
+PhotoMaster.master.imagePickedDoneAction = { image, imageBase64, picker in
+let img:UIImage = image
+self.imageSelectedInBase64 = PhotoMaster.master.getBase64StringFromImage(img.resizeToWidth(100))
+picker.dismissViewControllerAnimated(true, completion: nil)
+self.profileImageView.image = image
+}
+PhotoMaster.master.askProfoundQuestions()
+```
+
+*/
+
 class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     static let master = PhotoMaster()
@@ -71,16 +88,41 @@ class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDeleg
     // MARK: Image Picker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         
-        let _image: UIImage = image
-        let base64String: String = (UIImageJPEGRepresentation(_image, 1)?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
-        
         imagePickedDoneAction(
             image: image,
-            imageInBase64:base64String,
+            imageInBase64:self.getBase64StringFromImage(image),
             picker: picker)
     }
     
+    func getBase64StringFromImage(image: UIImage) -> String {
+        let base64String: String = (UIImageJPEGRepresentation(image, 1)?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        return base64String
+    }
     
     
+}
+
+extension UIImage {
     
+    func resize(scale:CGFloat)-> UIImage {
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width*scale, height: size.height*scale)))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+    
+    func resizeToWidth(width:CGFloat)-> UIImage {
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
