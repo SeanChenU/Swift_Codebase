@@ -16,6 +16,7 @@
 		0D8C0E881C101A9B00C164A5 /* Swift_CodebaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E871C101A9A00C164A5 /* Swift_CodebaseUITests.swift */; };
 		0D8C0E961C101AF500C164A5 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E951C101AF500C164A5 /* Readme.md */; settings = {ASSET_TAGS = (); }; };
 		0D8C0E981C101B8C00C164A5 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C0E971C101B8C00C164A5 /* FileHelper.swift */; settings = {ASSET_TAGS = (); }; };
+		E9EC86031C228D68004252F2 /* PhotoMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC86021C228D68004252F2 /* PhotoMaster.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0D8C0E891C101A9B00C164A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D8C0E951C101AF500C164A5 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		0D8C0E971C101B8C00C164A5 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		E9EC86021C228D68004252F2 /* PhotoMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMaster.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				0D8C0E671C101A9A00C164A5 /* AppDelegate.swift */,
 				0D8C0E691C101A9A00C164A5 /* ViewController.swift */,
 				0D8C0E971C101B8C00C164A5 /* FileHelper.swift */,
+				E9EC86021C228D68004252F2 /* PhotoMaster.swift */,
 				0D8C0E6B1C101A9A00C164A5 /* Main.storyboard */,
 				0D8C0E6E1C101A9A00C164A5 /* Assets.xcassets */,
 				0D8C0E701C101A9A00C164A5 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 				0D8C0E681C101A9A00C164A5 /* AppDelegate.swift in Sources */,
 				0D8C0E961C101AF500C164A5 /* Readme.md in Sources */,
 				0D8C0E981C101B8C00C164A5 /* FileHelper.swift in Sources */,
+				E9EC86031C228D68004252F2 /* PhotoMaster.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +493,7 @@
 				0D8C0E8E1C101A9B00C164A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D8C0E8F1C101A9B00C164A5 /* Build configuration list for PBXNativeTarget "Swift_CodebaseTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +502,7 @@
 				0D8C0E911C101A9B00C164A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D8C0E921C101A9B00C164A5 /* Build configuration list for PBXNativeTarget "Swift_CodebaseUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +511,7 @@
 				0D8C0E941C101A9B00C164A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
