@@ -19,7 +19,7 @@ class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDeleg
     private var actionSheet: UIActionSheet?
     
     // * Used in somewhere
-    var imagePickedDoneAction: (image:UIImage, picker:UIImagePickerController) -> Void = { image -> Void in
+    var imagePickedDoneAction: (image:UIImage, imageInBase64: String, picker:UIImagePickerController) -> Void = { image -> Void in
         
     }
     
@@ -36,7 +36,7 @@ class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDeleg
         }
         
         if actionSheet == nil {
-            actionSheet = UIActionSheet(title: "Choose a photo", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Take a photo", "Choose from camera roll")
+            actionSheet = UIActionSheet(title: "Choose A Photo", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Take A Photo", "Choose From Camera Roll")
         }
         
         actionSheet?.showInView(self.thisViewController!.view)
@@ -71,7 +71,13 @@ class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDeleg
     // MARK: Image Picker Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         
-        imagePickedDoneAction(image: image, picker: picker)
+        let _image: UIImage = image
+        let base64String: String = (UIImageJPEGRepresentation(_image, 1)?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength))!
+        
+        imagePickedDoneAction(
+            image: image,
+            imageInBase64:base64String,
+            picker: picker)
     }
     
     
