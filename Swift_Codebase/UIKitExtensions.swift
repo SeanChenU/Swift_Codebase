@@ -155,3 +155,21 @@ extension UIColor { // darker
     }
     
 }
+
+extension UIView {
+    func x() -> CGFloat {
+        return self.frame.origin.x
+    }
+    
+    func y() -> CGFloat {
+        return self.frame.origin.y
+    }
+    
+    func width() -> CGFloat {
+        return self.frame.size.width
+    }
+    
+    func height() -> CGFloat {
+        return self.frame.size.height
+    }
+}
