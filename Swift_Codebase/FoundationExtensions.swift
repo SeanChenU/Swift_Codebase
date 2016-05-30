@@ -85,3 +85,23 @@ extension String {
     }
     
 }
+
+extension Array {
+    func split() -> (left: [Element], right: [Element]) {
+        let ct = self.count
+        let half = ct / 2
+        let leftSplit = self[0 ..< half]
+        let rightSplit = self[half ..< ct]
+        return (left: Array(leftSplit), right: Array(rightSplit))
+    }
+}
+
+extension NSObject {
+    func doAfterDelay(sec: Int64, action:() -> Void) {
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), sec * Int64(NSEC_PER_SEC))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            //put your code which should be executed with a delay here
+            action()
+        }
+    }
+}
