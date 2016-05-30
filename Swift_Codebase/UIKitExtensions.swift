@@ -364,6 +364,12 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+    func dismissNow () {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 // MARK: AlertView Helper
 extension UIViewController {
     
