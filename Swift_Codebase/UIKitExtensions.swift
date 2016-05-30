@@ -389,6 +389,12 @@ extension UIViewController {
     
 }
 
+// MARK: - UITableViewController
+extension UITableView {
+    func getCellsHeight(section:Int) -> CGFloat {
+        return self.rectForSection(section).height
+    }
+}
 
 // MARK: - CUSTOM CLASSES
 class RoundedContainerView: UIView {

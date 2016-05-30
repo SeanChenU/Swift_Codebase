@@ -13,11 +13,6 @@ class ViewControllerUtil {
     
 }
 
-// MARK: Find tableView cells accumulated height
 extension ViewControllerUtil {
-    
-    class func getCellsHeight(tableView: UITableView, section:Int) -> CGFloat {
-        return tableView.rectForSection(section).height
-    }
     
 }
