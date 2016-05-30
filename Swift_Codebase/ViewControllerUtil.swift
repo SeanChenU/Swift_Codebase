@@ -21,28 +21,3 @@ extension ViewControllerUtil {
     }
     
 }
-
-// MARK: AlertView Helper
-extension UIViewController {
-    
-    func showAlertWithOptions(target: UIViewController, alertTitle:String, msg:String, okAction:()->Void, usingCancel: Bool) {
-        
-        let alert = UIAlertController(title: alertTitle, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
-            okAction()
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-            
-        }
-        
-        alert.addAction(ok)
-        if usingCancel {
-            alert.addAction(cancel)
-        }
-        
-        target.presentViewController(alert, animated: true) { () -> Void in
-            
-        }
-    }
-    
-}

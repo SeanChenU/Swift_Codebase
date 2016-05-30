@@ -364,6 +364,31 @@ extension UIViewController {
     }
 }
 
+// MARK: AlertView Helper
+extension UIViewController {
+    
+    func showAlertWithOptions(target: UIViewController, alertTitle:String, msg:String, okAction:(okAlertAction: UIAlertAction)->Void, usingCancel: Bool) {
+        
+        let alert = UIAlertController(title: alertTitle, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
+            okAction(okAlertAction: action)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            
+        }
+        
+        alert.addAction(ok)
+        if usingCancel {
+            alert.addAction(cancel)
+        }
+        
+        target.presentViewController(alert, animated: true) { () -> Void in
+            
+        }
+    }
+    
+}
+
 
 // MARK: - CUSTOM CLASSES
 class RoundedContainerView: UIView {
