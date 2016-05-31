@@ -132,6 +132,12 @@ extension UIView {
     }
 }
 
+extension UIControl {
+    public func addTapHandler(handler: () -> ()) {
+        self.addControlEvent(UIControlEvents.TouchUpInside, closure: handler)
+    }
+}
+
 //MARK: - UILabel
 extension UILabel {
     
@@ -367,6 +373,10 @@ extension UIViewController {
 extension UIViewController {
     func dismissNow () {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func popNow() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }
 
