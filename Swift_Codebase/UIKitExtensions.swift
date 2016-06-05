@@ -405,6 +405,13 @@ extension UIViewController {
     
 }
 
+// STORYBOARD HELPER
+extension UIViewController {
+    class func viewControllerWithStoryboardId(identifier: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
+    }
+}
+
 // MARK: - UITableViewController
 extension UITableView {
     func getCellsHeight(section:Int) -> CGFloat {

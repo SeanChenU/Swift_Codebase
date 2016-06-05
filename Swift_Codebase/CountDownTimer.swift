@@ -48,7 +48,7 @@ class CountDownTimer: NSObject {
     
     // func helper
     func scheduleTimer() {
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fired", userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CountDownTimer.fired), userInfo: nil, repeats: true)
     }
     
     func nullsTimer() {

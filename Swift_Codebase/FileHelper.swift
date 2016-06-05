@@ -43,20 +43,16 @@ class FileHelper: NSObject {
     }
     
     func listFilesInDocumentFolder() -> [String] {
-        let dirs = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String]
-        if dirs != nil {
-            let dir = dirs![0]
-            do {
-                let fileList = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(dir)
-                return fileList as [String]
-            }catch {
-                
-            }
+        let dirs = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+        
+        let dir = dirs[0]
+        do {
+            let fileList = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(dir)
+            return fileList as [String]
+        }catch {
             
-        }else{
-            let fileList = [""]
-            return fileList
         }
+        
         let fileList = [""]
         return fileList
     }
