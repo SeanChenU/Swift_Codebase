@@ -1,3 +1,17 @@
+## Introduction ##
+
+Swift_Codebase provides drag-and-drop essential tools that help indie Swift developers complete their projects faster. Swift_Codebase is at her very early stage. Fork it and help us improve the codebase! Explore and improve!
+
+## Features ##
+
+* PhotoMaster: Super easy imagepicker wrapper. Use imagePicker in few lines of code.
+* FileHelper: Basic file handling.
+* FoundationExtensions: Multiple categories for Foundation classes.
+* UIKitExtensions: Multiple categories for UIKit classes.
+* CountDownTimer: Use count down in few lines of codes.
+
+### PhotoMaster ###
+
 ## Usage ##
 
 ### Add git submodule
