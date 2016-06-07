@@ -33,8 +33,10 @@ class KeyboardMaster: NSObject {
         
     }
     
+    // MARK: - OLD WAY
     // Put in didBeginEditing
-    class func monitorWhoIsCoveredByKeyboard(target target:UIViewController) {
+    // DEPRECATED
+    private class func monitorWhoIsCoveredByKeyboard(target target:UIViewController) {
         for view in target.view.subviews {
             if view.isFirstResponder() {
                 let bottom = view.frame.size.height + view.frame.origin.y
@@ -52,7 +54,8 @@ class KeyboardMaster: NSObject {
     }
     
     // Put in didBeginEditing, when the target is `UIView`
-    class func monitorWhoIsCoveredByKeyboard(targetView targetView:UIView, yOffSet:CGFloat) {
+    // DEPRECATED
+    private class func monitorWhoIsCoveredByKeyboard(targetView targetView:UIView, yOffSet:CGFloat) {
         
         for view in targetView.subviews {
             if view.isFirstResponder() {
@@ -73,14 +76,16 @@ class KeyboardMaster: NSObject {
     }
     
     // Put in didEndEditing
-    class func moveEverythingBackToOriginal(target target:UIViewController) {
+    // DEPRECATED
+    private class func moveEverythingBackToOriginal(target target:UIViewController) {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             target.view.frame.origin.y = 0
         })
     }
     
     // Put in didEndEditing, when the target is `UIView`
-    class func moveEverythingBackToOriginal(targetView targetView:UIView) {
+    // DEPRECATED
+    private class func moveEverythingBackToOriginal(targetView targetView:UIView) {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             targetView.bounds.origin.y = 0
         })
@@ -88,6 +93,9 @@ class KeyboardMaster: NSObject {
     
     //MARK: - COMPLETELY NEW WAY TO HANDLE KEYBOARD ISSUE
     class func monitorViewsWhoAreCoveredByKeyboard(views:[UIView], targetView: UIView, yOffSet:CGFloat) {
+        // USE THE `WINDOW` IF NOT NIL
+        let baseView = targetView.window == nil ? targetView : targetView.window!
+        
         // LISTEN TO WHEN KEYBOARD SHOWN
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification) in
             let kbTopY = KeyboardMaster.getKeyboardHeightFromNotificationDictionary(notification).keyboardY
@@ -95,14 +103,14 @@ class KeyboardMaster: NSObject {
             // FIND OUT WHO ARE FIRST RESPONDERS
             for view in views {
                 if view.isFirstResponder() {
-                    let viewBottom = KeyboardMaster.getViewBottom(view, baseView: targetView)
+                    let viewBottom = KeyboardMaster.getViewBottom(view, baseView: baseView)
                     if viewBottom > kbTopY { // IS BELOW THE KEYBOARD
                         print("\(view) is covered by keyboard!")
                         
                         let delta = viewBottom - kbTopY
                         
                         // MOVE UP THE KEYBOARD
-                        KeyboardMaster.moveTheTargetView(targetView, direction: .Up, yOffset: delta + yOffSet)
+                        KeyboardMaster.moveTheTargetView(baseView, direction: .Up, yOffset: delta + yOffSet)
                         
                     } else { // NOT BELOW THE KEYBOARD
                         
@@ -113,7 +121,7 @@ class KeyboardMaster: NSObject {
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillHideNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification) in
             
-            KeyboardMaster.moveTheTargetView(targetView, direction: .Down, yOffset: 0)
+            KeyboardMaster.moveTheTargetView(baseView, direction: .Down, yOffset: 0)
             
         }
     }
@@ -142,7 +150,6 @@ class KeyboardMaster: NSObject {
     }
     
     // GET VIEW'S FRAME THAT IS CONVERTED ACCORDING TO BASEVIEW
-    // TODO: NESTED VIEW SITUATION
     class func getViewFrameFromInBaseView(view: UIView, baseView: UIView) -> CGRect {
         
         var fromView: UIView?
