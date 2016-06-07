@@ -9,6 +9,8 @@ Swift_Codebase provides drag-and-drop essential tools that help indie Swift deve
 * FoundationExtensions: Multiple categories for Foundation classes.
 * UIKitExtensions: Multiple categories for UIKit classes.
 * CountDownTimer: Use count down in few lines of codes.
+* TextFieldAction: Enable dismissing keyboard when tapping background view for UITextField in single line of code.
+* TextViewAction: Enable dismissing keyboard when tapping background view for UITextView in single line of code.
 
 ### PhotoMaster ###
 
