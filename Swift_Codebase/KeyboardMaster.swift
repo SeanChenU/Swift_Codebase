@@ -99,8 +99,10 @@ class KeyboardMaster: NSObject {
                     if viewBottom > kbTopY { // IS BELOW THE KEYBOARD
                         print("\(view) is covered by keyboard!")
                         
+                        let delta = viewBottom - kbTopY
+                        
                         // MOVE UP THE KEYBOARD
-                        KeyboardMaster.moveTheTargetView(targetView, direction: KeyboardMaster.MovingDirection.Up, yOffset: 0)
+                        KeyboardMaster.moveTheTargetView(targetView, direction: .Up, yOffset: delta + yOffSet)
                         
                     } else { // NOT BELOW THE KEYBOARD
                         
@@ -111,7 +113,7 @@ class KeyboardMaster: NSObject {
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillHideNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification) in
             
-            KeyboardMaster.moveTheTargetView(targetView, direction: KeyboardMaster.MovingDirection.Down, yOffset: 0)
+            KeyboardMaster.moveTheTargetView(targetView, direction: .Down, yOffset: 0)
             
         }
     }
@@ -139,7 +141,7 @@ class KeyboardMaster: NSObject {
         return KeyboardMaster.getViewFrameFromInBaseView(view, baseView: baseView).origin.y + view.frame.size.height
     }
     
-    // GET VIEW'S FRAME THAT IS CONVERTED BY self.view
+    // GET VIEW'S FRAME THAT IS CONVERTED ACCORDING TO BASEVIEW
     // TODO: NESTED VIEW SITUATION
     class func getViewFrameFromInBaseView(view: UIView, baseView: UIView) -> CGRect {
         
@@ -149,14 +151,14 @@ class KeyboardMaster: NSObject {
         var latestConvertedFrame = view.superview?.superview?.convertRect(view.frame, fromView: view.superview!)
         
         while fromView?.superview !== baseView && fromView?.superview != nil {
+            print("\(fromView)")
             if fromView != nil && latestConvertedFrame != nil {
                 latestConvertedFrame = fromView?.superview?.superview?.convertRect(latestConvertedFrame!, fromView: fromView!.superview!)
-                fromView = fromView?.superview
+                fromView = fromView?.superview // KEEP MOVING TO NEXT SUPERVIEW
             }
         }
         
         return latestConvertedFrame!
-        
     }
     
     private class func getKeyboardHeightFromNotificationDictionary(notification: NSNotification) -> (keyboardHeight: CGFloat, keyboardY: CGFloat) {
