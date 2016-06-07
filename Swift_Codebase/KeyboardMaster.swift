@@ -141,9 +141,22 @@ class KeyboardMaster: NSObject {
     
     // GET VIEW'S FRAME THAT IS CONVERTED BY self.view
     // TODO: NESTED VIEW SITUATION
-    private class func getViewFrameFromInBaseView(view: UIView, baseView: UIView) -> CGRect {
-        let frame = baseView.convertRect(view.frame, fromView: view.superview!)
-        return frame
+    class func getViewFrameFromInBaseView(view: UIView, baseView: UIView) -> CGRect {
+        
+        var fromView: UIView?
+        fromView = view.superview
+        
+        var latestConvertedFrame = view.superview?.superview?.convertRect(view.frame, fromView: view.superview!)
+        
+        while fromView?.superview !== baseView && fromView?.superview != nil {
+            if fromView != nil && latestConvertedFrame != nil {
+                latestConvertedFrame = fromView?.superview?.superview?.convertRect(latestConvertedFrame!, fromView: fromView!.superview!)
+                fromView = fromView?.superview
+            }
+        }
+        
+        return latestConvertedFrame!
+        
     }
     
     private class func getKeyboardHeightFromNotificationDictionary(notification: NSNotification) -> (keyboardHeight: CGFloat, keyboardY: CGFloat) {
