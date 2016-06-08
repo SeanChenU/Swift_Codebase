@@ -20,6 +20,18 @@ class TextViewAction: NSObject {
         gestureTargetView.addGestureRecognizer(tapGes)
     }
     
+    func registerTextViewsToDismissKeyboardForSuperView(textViews: [UITextView]) {
+        guard textViews.count != 0 else {
+            return
+        }
+        
+        guard textViews[0].superview != nil else {
+            return
+        }
+        
+        self.registerTextViewsToDismissKeyboard(textViews, gestureTargetView: textViews[0].superview!)
+    }
+    
     func tapToDismiss() {
         guard self.textViews != nil else {
             return
