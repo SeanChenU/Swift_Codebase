@@ -24,7 +24,7 @@ class KeyboardMaster: NSObject {
             let keyboardHeight: CGFloat = kbRect.height
             let fromTopToKeyboard: CGFloat = UIScreen.mainScreen().bounds.height - keyboardHeight
             NSUserDefaults.standardUserDefaults().setObject(NSNumber(float: Float(fromTopToKeyboard)), forKey: "keyboardY")
-            print("Keyboard from top: \(fromTopToKeyboard)")
+            print("@@ Keyboard shown from top: \(fromTopToKeyboard)")
             
             completeWithFromTopY(fromTopToKeyboard)
             
@@ -93,19 +93,22 @@ class KeyboardMaster: NSObject {
     
     //MARK: - COMPLETELY NEW WAY TO HANDLE KEYBOARD ISSUE
     class func monitorViewsWhoAreCoveredByKeyboard(views:[UIView], targetView: UIView, yOffSet:CGFloat) {
-        // USE THE `WINDOW` IF NOT NIL
-        let baseView = targetView.window == nil ? targetView : targetView.window!
         
         // LISTEN TO WHEN KEYBOARD SHOWN
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification) in
+//            print("keyboard shown")
+            
             let kbTopY = KeyboardMaster.getKeyboardHeightFromNotificationDictionary(notification).keyboardY
             
             // FIND OUT WHO ARE FIRST RESPONDERS
             for view in views {
                 if view.isFirstResponder() {
+                    // USE THE `WINDOW` IF NOT NIL
+                    let baseView = targetView.window == nil ? targetView : targetView.window!
+                    
                     let viewBottom = KeyboardMaster.getViewBottom(view, baseView: baseView)
                     if viewBottom > kbTopY { // IS BELOW THE KEYBOARD
-                        print("\(view) is covered by keyboard!")
+//                        print("\(view) is covered by keyboard!")
                         
                         let delta = viewBottom - kbTopY
                         
@@ -120,6 +123,8 @@ class KeyboardMaster: NSObject {
         }
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillHideNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification) in
+            // USE THE `WINDOW` IF NOT NIL
+            let baseView = targetView.window == nil ? targetView : targetView.window!
             
             KeyboardMaster.moveTheTargetView(baseView, direction: .Down, yOffset: 0)
             
@@ -152,20 +157,28 @@ class KeyboardMaster: NSObject {
     // GET VIEW'S FRAME THAT IS CONVERTED ACCORDING TO BASEVIEW
     class func getViewFrameFromInBaseView(view: UIView, baseView: UIView) -> CGRect {
         
-        var fromView: UIView?
-        fromView = view.superview
-        
-        var latestConvertedFrame = view.superview?.superview?.convertRect(view.frame, fromView: view.superview!)
-        
-        while fromView?.superview !== baseView && fromView?.superview != nil {
-            print("\(fromView)")
-            if fromView != nil && latestConvertedFrame != nil {
-                latestConvertedFrame = fromView?.superview?.superview?.convertRect(latestConvertedFrame!, fromView: fromView!.superview!)
-                fromView = fromView?.superview // KEEP MOVING TO NEXT SUPERVIEW
-            }
+        guard view.superview != nil else {
+            return CGRectZero
         }
         
-        return latestConvertedFrame!
+        if view.superview! === baseView {
+            return view.frame
+        } else {
+            var fromView: UIView?
+            fromView = view.superview
+            
+            var latestConvertedFrame = view.superview?.superview?.convertRect(view.frame, fromView: view.superview!)
+            
+            while fromView?.superview !== baseView && fromView?.superview != nil {
+//                print("\(fromView)")
+                if fromView != nil && latestConvertedFrame != nil {
+                    latestConvertedFrame = fromView?.superview?.superview?.convertRect(latestConvertedFrame!, fromView: fromView!.superview!)
+                    fromView = fromView?.superview // KEEP MOVING TO NEXT SUPERVIEW
+                }
+            }
+            
+            return latestConvertedFrame!
+        }
     }
     
     private class func getKeyboardHeightFromNotificationDictionary(notification: NSNotification) -> (keyboardHeight: CGFloat, keyboardY: CGFloat) {
