@@ -42,7 +42,7 @@ class PickerMaster: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     // HELPER
     func findPickOptionTextFieldByPicker(picker: UIPickerView) -> (pickerOption: [String]?, textField: UITextField?) {
         let thePickerData = pickersData.filter { (aPickerData) -> Bool in
-            if aPickerData[pickerKey()] as! UIPickerView === picker {
+            if aPickerData[pickerKey()] as? UIPickerView === picker {
                 return true
             }
             return false
@@ -86,6 +86,46 @@ class PickerMaster: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
             return
         }
         textField!.text = option![row]
+    }
+    
+    // MARK: - DATEPICKER
+    func createDatePickerForView(textField: UITextField) {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .Date
+        
+        textField.inputView = picker
+        picker.addTarget(self, action: #selector(PickerMaster.datePicked(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        self.pickersData.append([pickerKey(): picker, pickerTextField(): textField])
+    }
+    
+    func datePicked(picker: UIDatePicker) {
+        let textField = findPickerTextFieldByDatePicker(picker)
+        guard textField != nil else {
+            return
+        }
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .NoStyle
+        
+        textField?.text = dateFormatter.stringFromDate(picker.date)
+    }
+    
+    // HELPER
+    func findPickerTextFieldByDatePicker(picker: UIDatePicker) -> UITextField? {
+        let thePickerData = pickersData.filter { (aPickerData) -> Bool in
+            if aPickerData[pickerKey()] as? UIDatePicker === picker {
+                return true
+            }
+            return false
+        }
+        
+        if thePickerData.count == 0 {
+            return nil
+        } else {
+            return thePickerData[0][pickerTextField()] as? UITextField
+        }
     }
     
     // CLEANUP
