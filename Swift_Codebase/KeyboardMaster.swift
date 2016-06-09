@@ -141,7 +141,7 @@ class KeyboardMaster: NSObject {
         UIView.animateWithDuration(0.5, animations: {
             if direction == .Up {
                 let distanceWithDirection: CGFloat = CGFloat(50)
-                targetView.bounds.origin.y = targetView.bounds.origin.y + distanceWithDirection + yOffset
+                targetView.bounds.origin.y = distanceWithDirection + yOffset
             } else if direction == .Down {
                 targetView.bounds.origin.y = 0
             }
