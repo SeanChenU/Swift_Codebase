@@ -28,7 +28,7 @@ PhotoMaster.master.askProfoundQuestions()
 
 class PhotoMaster: NSObject, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    static let master = PhotoMaster()
+    static let sharedInstance = PhotoMaster()
     
     // Object
     private var thisViewController: UIViewController?
