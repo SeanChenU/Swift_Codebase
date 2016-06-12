@@ -412,6 +412,37 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+    func showAlertWithTextField(title: String?, message: String?, textFieldConfiguration:(textField: UITextField) -> Void, okAction:(action: UIAlertAction, text: String?) -> Void, cancelAction:(action: UIAlertAction) -> Void) {
+        
+        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textFieldConfiguration(textField: textField)
+        }
+        
+        let alertAction: UIAlertAction = UIAlertAction(title: "確認", style: .Default) { (action) in
+            guard alertController.textFields != nil else {
+                return
+            }
+            
+            let text = alertController.textFields![0].text
+            
+            okAction(action: action, text: text)
+        }
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "取消", style: .Default) { (action) in
+            cancelAction(action: action)
+        }
+        
+        alertController.addAction(alertAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true) { 
+            
+        }
+    }
+}
+
 // MARK: - UITableViewController
 extension UITableView {
     func getCellsHeight(section:Int) -> CGFloat {
