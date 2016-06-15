@@ -410,6 +410,10 @@ extension UIViewController {
     class func viewControllerWithStoryboardId(identifier: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
     }
+    
+    class func viewControllerWithVetStoryboardId(identifier: String) -> UIViewController {
+        return UIStoryboard(name: "Main_vet", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
+    }
 }
 
 extension UIViewController {
