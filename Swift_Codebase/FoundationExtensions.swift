@@ -105,3 +105,13 @@ extension NSObject {
         }
     }
 }
+
+extension NSDate {
+    class func timeString() -> String {
+        let now = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        formatter.timeStyle = .ShortStyle
+        return formatter.stringFromDate(now)
+    }
+}
