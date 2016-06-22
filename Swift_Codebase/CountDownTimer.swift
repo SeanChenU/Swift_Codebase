@@ -13,6 +13,7 @@ class CountDownTimer: NSObject {
     
     var countDown: NSTimeInterval = 0
     var timer: NSTimer?
+    // USE THEM
     var timerFired: (time: NSTimeInterval) -> () = { time in }
     var timerFiredWithMinString: (timeString: String) -> () = { timeString in }
     var timerEnded: () -> () = {}
@@ -29,7 +30,7 @@ class CountDownTimer: NSObject {
         self.scheduleTimer()
     }
     
-    func fired() {
+    func fire() {
         self.countDown = self.countDown - 1
         
         if self.countDown >= 0 {
@@ -48,7 +49,7 @@ class CountDownTimer: NSObject {
     
     // func helper
     func scheduleTimer() {
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CountDownTimer.fired), userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CountDownTimer.fire), userInfo: nil, repeats: true)
     }
     
     func nullsTimer() {
