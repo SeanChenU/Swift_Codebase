@@ -27,4 +27,16 @@ class Validate {
         let result = range != nil ? true : false
         return result
     }
+    
+    class func isAllTextFieldsNotEmpty(textFields: [UITextField]) -> Bool {
+        let results = textFields.filter { (textField) -> Bool in
+            guard textField.text != nil else {
+                return false
+            }
+            
+            return !textField.text!.isEmpty
+        }
+        
+        return results.count != 0
+    }
 }
