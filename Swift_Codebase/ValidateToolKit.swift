@@ -37,6 +37,6 @@ class Validate {
             return !textField.text!.isEmpty
         }
         
-        return results.count != 0
+        return results.count == textFields.count
     }
 }
