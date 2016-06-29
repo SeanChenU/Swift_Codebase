@@ -39,4 +39,8 @@ class Validate {
         
         return results.count == textFields.count
     }
+    
+    class func checkPasswordLength(textField: UITextField) -> Bool {
+        return textField.text!.characters.count >= 6
+    }
 }
