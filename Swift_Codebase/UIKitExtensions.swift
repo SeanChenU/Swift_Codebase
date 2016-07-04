@@ -248,8 +248,8 @@ extension UIImageView {
 
 extension UIImageView {
     func asyncImageWithURL(url: String) {
-        Alamofire.request(.GET, url).responseImage { (req, res, result) -> Void in
-            if let imageResult = result.value {
+        Alamofire.request(.GET, url).responseImage { (response) -> Void in
+            if let imageResult = response.result.value {
                 self.image = imageResult
             }
         }
