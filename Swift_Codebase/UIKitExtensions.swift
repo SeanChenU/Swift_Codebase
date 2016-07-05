@@ -236,6 +236,9 @@ extension UITextField {
     }
 }
 
+// MARK: - UIImage
+// IN PHOTOMASTER
+
 // MARK: - UIImageView
 extension UIImageView {
     func makeBorderedCircle() {
