@@ -6,6 +6,7 @@
 //  Copyright © 2016年 IgnioLab. All rights reserved.
 //
 
+import ActionKit
 
 class PickerMaster: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     static let sharedInstance = PickerMaster()
@@ -89,12 +90,21 @@ class PickerMaster: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     // MARK: - DATEPICKER
-    func createDatePickerForView(textField: UITextField) {
+    func createDatePickerForView(textField: UITextField, completion: (pickerDate: NSDate) -> Void ) {
         let picker = UIDatePicker()
         picker.datePickerMode = .Date
         
         textField.inputView = picker
-        picker.addTarget(self, action: #selector(PickerMaster.datePicked(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+//        picker.addTarget(self, action: #selector(PickerMaster.datePicked(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        picker.addControlEvent(.ValueChanged) {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = .MediumStyle
+            dateFormatter.timeStyle = .NoStyle
+            textField.text = dateFormatter.stringFromDate(picker.date)
+            
+            completion(pickerDate: picker.date)
+        }
         
         self.pickersData.append([pickerKey(): picker, pickerTextField(): textField])
     }
