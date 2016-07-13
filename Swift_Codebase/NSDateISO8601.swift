@@ -25,4 +25,12 @@ public extension NSDate {
         
         return dateFormatter.dateFromString(string)!
     }
+    
+    public class func dateStringFromISOString(string: String) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.timeStyle = .NoStyle
+        let date: NSDate = NSDate.dateFromISOString(string)
+        return dateFormatter.stringFromDate(date)
+    }
 }
