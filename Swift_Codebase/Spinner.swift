@@ -20,6 +20,10 @@ class Spinner: NSObject {
         SwiftSpinner.show(title, animated: false)
     }
     
+    class func showAndHide(title: String) {
+        SwiftSpinner.showWithDuration(1.2, title: title, animated: true)
+    }
+    
     class func hide(completion: (() -> Void)?) {
         SwiftSpinner.hide(completion)
     }
