@@ -33,4 +33,15 @@ public extension NSDate {
         let date: NSDate = NSDate.dateFromISOString(string)
         return dateFormatter.stringFromDate(date)
     }
+    
+    public class func ISOStringFromShortStyleDateString(shortStyleDateString: String) -> String? {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.timeStyle = .NoStyle
+        let date: NSDate? = dateFormatter.dateFromString(shortStyleDateString)
+        if let _date = date {
+            return NSDate.ISOStringFromDate(_date)
+        }
+        return nil
+    }
 }
