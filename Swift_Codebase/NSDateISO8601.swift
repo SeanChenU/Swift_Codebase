@@ -34,6 +34,14 @@ public extension NSDate {
         return dateFormatter.stringFromDate(date)
     }
     
+    public class func timeStringFromISOString(string: String) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .NoStyle
+        dateFormatter.timeStyle = .ShortStyle
+        let date: NSDate = NSDate.dateFromISOString(string)
+        return dateFormatter.stringFromDate(date)
+    }
+    
     public class func ISOStringFromShortStyleDateString(shortStyleDateString: String) -> String? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .ShortStyle
