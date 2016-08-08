@@ -128,7 +128,7 @@ extension Array {
     }
     
     // plunkMultiple WITH NESTED JSON KEY
-    func plunkMultipleWithNestedKeys(nestedKeys: [[String]]) -> [[AnyObject]] {
+    func plunkMultipleWithNestedKeys(nestedKeys: [[String]], customization: (object: AnyObject, index: Int) -> AnyObject) -> [[AnyObject]] {
         
         // self must be instance [[String: AnyObject]]
         
@@ -139,20 +139,59 @@ extension Array {
             if element is JSON {
                 
                 let json = element as! JSON
+                final.append([])
                 
+                var keyIndex = 0
                 nestedKeys.forEach({ (keys) in
                     
+                    // UNPACK NESTED JSON
                     var tempObject: JSON = json
                     keys.forEach({ (flatKey) in
                         tempObject = tempObject["\(flatKey)"]
                     })
                     
-                    final[index].append(tempObject.object)
+                    final[index].append(customization(object: tempObject.object, index: keyIndex))
+                    
+                    keyIndex += 1
                 })
+                
+                assert(final[index].count == nestedKeys.count)
                 
             } else {
                 
             }
+            
+            index += 1
+        }
+        
+        assert(final.count == self.count)
+        
+        return final
+    }
+    
+    func toStringListArray(array: [[AnyObject]] ) -> [[String]] {
+        return array.map { (element: [AnyObject]) -> [String] in
+            return element.map({ (ele) -> String in
+                return ele as! String
+            })
+        }
+    }
+}
+
+extension JSON {
+    func plunk(nestedKeys: [[String]], customize:(object: AnyObject, index: Int) -> AnyObject ) -> [AnyObject] {
+        
+        var final: [AnyObject] = []
+        var index = 0
+        
+        nestedKeys.forEach { (keys) in
+            // UNPACK NESTED JSON
+            var tempObject: JSON = self
+            keys.forEach({ (flatKey) in
+                tempObject = tempObject["\(flatKey)"]
+            })
+            
+            final.append(customize(object: tempObject.object, index: index))
             
             index += 1
         }
@@ -194,5 +233,15 @@ extension NSDate {
         formatter.dateStyle = .ShortStyle
         formatter.timeStyle = .NoStyle
         return formatter.stringFromDate(now)
+    }
+}
+
+extension NSDate {
+    class func durationText(startISO: String, endISO: String) -> String {
+        let start = NSDate.dateFromISOString(startISO)
+        let end = NSDate.dateFromISOString(endISO)
+        let duration = end.timeIntervalSinceDate(start)
+        let mins: Int = Int(duration)/60
+        return "\(mins) 分鐘"
     }
 }
