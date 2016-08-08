@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 extension String {
     func base64decode() -> NSData? {
@@ -93,6 +94,70 @@ extension Array {
         let leftSplit = self[0 ..< half]
         let rightSplit = self[half ..< ct]
         return (left: Array(leftSplit), right: Array(rightSplit))
+    }
+}
+
+extension Array {
+    
+    // [{a: A, b: B, c: C, d: D}, {a: A, b: B, c: C, d: D}, {a: A, b: B, c: C, d: D}, {a: A, b: B, c: C, d: D}] ---a,c,d--> [[A, C, D], [A, C, D], [A, C, D]]
+    func plunkMultiple(keys: [String]) -> [[AnyObject]] {
+        
+        // self must be instance [[String: AnyObject]]
+        
+        var final: [[AnyObject]] = []
+        
+        var index = 0
+        self.forEach { (element) in
+            if element is JSON {
+                
+                let json = element as! JSON
+                
+                keys.forEach({ (key) in
+                    let object = json["\(key)"].object
+                    final[index].append(object)
+                })
+                
+            } else {
+            
+            }
+            
+            index += 1
+        }
+        
+        return final
+    }
+    
+    // plunkMultiple WITH NESTED JSON KEY
+    func plunkMultipleWithNestedKeys(nestedKeys: [[String]]) -> [[AnyObject]] {
+        
+        // self must be instance [[String: AnyObject]]
+        
+        var final: [[AnyObject]] = []
+        
+        var index = 0
+        self.forEach { (element) in
+            if element is JSON {
+                
+                let json = element as! JSON
+                
+                nestedKeys.forEach({ (keys) in
+                    
+                    var tempObject: JSON = json
+                    keys.forEach({ (flatKey) in
+                        tempObject = tempObject["\(flatKey)"]
+                    })
+                    
+                    final[index].append(tempObject.object)
+                })
+                
+            } else {
+                
+            }
+            
+            index += 1
+        }
+        
+        return final
     }
 }
 
