@@ -48,6 +48,19 @@ class Validate {
         return results.count == textFields.count
     }
     
+    class func isAllTextViewsNotEmpty(textViews: [UITextView]) -> Bool {
+        let results = textViews.filter { (textView) -> Bool in
+            guard textView.text != nil else {
+                return false
+            }
+            
+            return !textView.text!.isEmpty
+        }
+        
+        return results.count == textViews.count
+    }
+    
+    
     class func checkPasswordLength(textField: UITextField) -> Bool {
         return textField.text!.characters.count >= 6
     }
