@@ -46,7 +46,7 @@ class LocationMaster: NSObject, CLLocationManagerDelegate {
         self.currentLocation = locations.last
     }
     
-    // GEOCODE HELPER
+    // MARK: REVERSE GEOCODE
     func reverseGeocode(location: CLLocation, completion: (locationObject: LocationObject?) -> Void) {
         if self.geoCoder != nil {
             self.geoCoder?.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
@@ -100,4 +100,31 @@ class LocationMaster: NSObject, CLLocationManagerDelegate {
         return CNPostalAddressFormatter.stringFromPostalAddress(postalAddressFromAddressDictionary(addressDictionary), style: .MailingAddress)
     }
     
+    // MARK: GEOCODE
+    func geoCode(address: String, completion: (locationObject: LocationObject?) -> Void) {
+        guard self.geoCoder != nil else {
+            completion(locationObject: nil)
+            return
+        }
+        
+        self.geoCoder?.geocodeAddressString(address, completionHandler: { (placemarks, error) in
+            if error != nil {
+                completion(locationObject: nil)
+            } else {
+                let placemark = placemarks?.last
+                
+                guard placemark != nil else {
+                    completion(locationObject: nil)
+                    return
+                }
+                
+                let locObject = LocationObject(coordinate: placemark!.location!.coordinate, address: address)
+                completion(locationObject: locObject)
+            }
+        })
+    }
 }
+
+
+
+

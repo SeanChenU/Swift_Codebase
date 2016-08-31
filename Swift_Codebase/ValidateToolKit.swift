@@ -11,13 +11,21 @@ import Foundation
 // MARK: Basic Validate Tool Kit
 class Validate {
     
-    class func isValidEmail(testStr:String) -> Bool {
+    class func isValidEmail(testStr: String) -> Bool {
         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let range = testStr.rangeOfString(emailRegEx, options:.RegularExpressionSearch)
         let result = range != nil ? true : false
         return result
         
+    }
+    
+    class func isPhone(testString: String) -> Bool {
+        if testString.characters.count != 10 {
+            return false
+        }
+        
+        return true
     }
     
     // Check the number in text is 2 ~ 9

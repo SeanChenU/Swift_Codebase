@@ -18,4 +18,5 @@ enum ReminderText: String {
     case ChooseImage = "請選擇您的大頭照"
     case ChooseGeneralImage = "請選擇照片 😻"
     case JustFailed = "發生問題，請稍候再試 😭"
+    case EnterValidPhone = "請輸入正確的手機號碼"
 }
