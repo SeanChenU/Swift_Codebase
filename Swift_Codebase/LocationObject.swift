@@ -42,6 +42,10 @@ class LocationObject: NSObject {
         return ["text": self.address, "loc": ["lat": self.coordinate.latitude, "lng": self.coordinate.longitude]]
     }
     
+    internal func toJSONString() -> String? {
+        return JSON(self.toDict()).rawString(NSUTF8StringEncoding, options: NSJSONWritingOptions.PrettyPrinted)
+    }
+    
     override var description: String {
         return "<LocationObject> lat: \(self.coordinate.latitude), lng: \(self.coordinate.longitude), address: \(self.address)"
     }
