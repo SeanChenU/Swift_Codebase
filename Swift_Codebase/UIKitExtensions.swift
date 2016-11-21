@@ -410,6 +410,27 @@ extension UIViewController {
         }
     }
     
+    func showAlertWithOptions(target: UIViewController, alertTitle:String, msg:String, alertAction:(alertAction: Bool)->Void, usingCancel: Bool) {
+        
+        let alert = UIAlertController(title: alertTitle, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
+            alertAction(alertAction: true)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            alertAction(alertAction: false)
+            
+        }
+        
+        alert.addAction(ok)
+        if usingCancel {
+            alert.addAction(cancel)
+        }
+        
+        target.presentViewController(alert, animated: true) { () -> Void in
+            
+        }
+    }
+    
 }
 
 // STORYBOARD HELPER

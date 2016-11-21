@@ -19,7 +19,7 @@ class FileHelper: NSObject {
     
     func getFilePathInDocumentsDirectory(filename: String) -> String {
         let fileURL = getDocumentsURL().URLByAppendingPathComponent(filename)
-        return fileURL.path!
+        return fileURL!.path!
     }
     
     /**

@@ -112,7 +112,7 @@ extension UIImage {
         imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return result
+        return result!
     }
     
     func resizeToWidth(width:CGFloat)-> UIImage {
@@ -123,6 +123,6 @@ extension UIImage {
         imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return result
+        return result!
     }
 }
