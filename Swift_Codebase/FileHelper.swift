@@ -71,4 +71,15 @@ class FileHelper: NSObject {
         
         print("After cleanup document folder: \(listFilesInDocumentFolder())")
     }
+    
+    func getStringFromTextFile(fileName: String, type: String) -> String {
+        let path = NSBundle.mainBundle().pathForResource(fileName, ofType: type)
+        do {
+            let text = try String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+            return text
+        } catch {
+            print("Read file from bundle exception")
+        }
+        return ""
+    }
 }
