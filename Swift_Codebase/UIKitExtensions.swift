@@ -233,6 +233,12 @@ extension UITextField {
         self.layer.borderWidth = 1.0
     }
     
+    func makeRoundBorder(color: UIColor) {
+        self.layer.cornerRadius = self.frame.size.height / 2
+        self.layer.borderColor = color.CGColor
+        self.layer.borderWidth = 1.0
+    }
+    
     func changePlaceholderColorTo(color:UIColor) {
         if let ph = self.placeholder {
             self.attributedPlaceholder = NSAttributedString(string: ph, attributes: [NSForegroundColorAttributeName: color])
