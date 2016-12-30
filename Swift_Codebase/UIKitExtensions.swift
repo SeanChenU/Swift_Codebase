@@ -49,6 +49,10 @@ extension UIView {
         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
     }
     
+    func becomeMaskWithAlpha(maskAlpha: CGFloat) {
+        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(maskAlpha)
+    }
+    
     func makeRounded(cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
