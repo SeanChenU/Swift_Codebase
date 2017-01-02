@@ -208,6 +208,12 @@ extension NSObject {
             action()
         }
     }
+    
+    func doRepeatly(interval: NSTimeInterval, action: () -> Void) {
+        let timer = NSTimer.scheduledTimerWithTimeInterval(interval, repeats: true) { (theTimer) in
+            action()
+        }
+    }
 }
 
 extension NSDate {
