@@ -18,6 +18,8 @@ class LocationMaster: NSObject, CLLocationManagerDelegate {
     
     var currentLocation: CLLocation?
     
+    var locationUpdated: ((location: CLLocation?) -> Void)?
+    
     override init() {
         super.init()
         
@@ -44,6 +46,10 @@ class LocationMaster: NSObject, CLLocationManagerDelegate {
     // LOCATION MANAGER DELEGATES
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.currentLocation = locations.last
+        
+        if let _locationUpdated = self.locationUpdated {
+            _locationUpdated(location: self.currentLocation)
+        }
     }
     
     // MARK: REVERSE GEOCODE
