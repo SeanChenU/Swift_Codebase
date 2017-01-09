@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="地址" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rkv-CV-BfD">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="請滑動以輸入地址" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rkv-CV-BfD">
                     <rect key="frame" x="20" y="85" width="335" height="60"/>
                     <color key="backgroundColor" red="0.9529411792755127" green="0.7921568751335144" blue="0.34117648005485535" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

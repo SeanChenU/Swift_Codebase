@@ -5,6 +5,14 @@
 //  Created by SEAN HD on 2017/1/9.
 //  Copyright © 2017年 IgnioLab. All rights reserved.
 //
+/*
+ Usage:
+ 
+ LocationPickerViewController.showLocationPicker(self) { (locObject) in
+     print("pickerDone \(locObject?.address)")
+ }
+ 
+ */
 
 import UIKit
 

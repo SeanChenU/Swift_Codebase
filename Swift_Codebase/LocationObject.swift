@@ -12,6 +12,11 @@ import SwiftyJSON
 class LocationObject: NSObject {
     var coordinate: CLLocationCoordinate2D
     var address: String
+    var addressSingleLine: String {
+        get {
+            return address.stringByReplacingOccurrencesOfString("\n", withString: "")
+        }
+    }
     
     required init(coordinate: CLLocationCoordinate2D, address: String) {
         self.coordinate = coordinate
