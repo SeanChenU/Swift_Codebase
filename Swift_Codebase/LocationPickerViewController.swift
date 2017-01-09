@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
+class LocationPickerViewController: UIViewController, GMSMapViewDelegate, UITextViewDelegate {
     
     static let LocationPickerDoneNotificationName = "location.picker.done"
     
@@ -18,7 +18,7 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var addressLabel: UITextView!
     
-    var currenLocObject: LocationObject?
+    var currentLocObject: LocationObject?
     var pickerDone: (locObject: LocationObject?) -> Void = { locObject in }
     
     class func showLocationPicker(fromVC: UIViewController, pickerDone: (locObject: LocationObject?) -> Void ) -> LocationPickerViewController {
@@ -45,14 +45,15 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
         self.addressLabel.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.2).CGColor
         self.addressLabel.layer.shadowRadius = 3.0
         
+        self.addressLabel.delegate = self
+        
         self.cancelButton.addTapHandler { 
             self.dismissNow()
         }
         
         self.doneButton.addTapHandler { 
-            NSNotificationCenter.defaultCenter().postNotificationName(LocationPickerViewController.LocationPickerDoneNotificationName, object: self.currenLocObject)
             
-            self.pickerDone(locObject: self.currenLocObject)
+            self.locationPicked()
             
             self.dismissNow()
         }
@@ -61,7 +62,7 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
     // MAP
     var flag_mapAnimated: Bool = false
     
-    func setupMap() {
+    private func setupMap() {
         self.mapView.myLocationEnabled = true
         self.mapView.delegate = self
         
@@ -75,11 +76,13 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func locationPicked() {
+        NSNotificationCenter.defaultCenter().postNotificationName(LocationPickerViewController.LocationPickerDoneNotificationName, object: self.currentLocObject)
+        
+        self.pickerDone(locObject: self.currentLocObject)
     }
     
+    // MARK: MapView Delegate
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         let loc = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
         LocationMaster.sharedInstance.reverseGeocode(loc) { (locationObject) in
@@ -87,7 +90,9 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
                 print(_locationObject.address)
                 self.addressLabel.text = _locationObject.address
                 
-                self.currenLocObject = locationObject
+                self.currentLocObject = locationObject
+            } else {
+                self.addressLabel.text = "請滑動選擇地址"
             }
         }
     }
@@ -96,6 +101,13 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
         self.addressLabel.resignFirstResponder()
     }
 
+    // MARK: TextView Delegate
+    func textViewDidEndEditing(textView: UITextView) {
+        self.currentLocObject?.changeAddress(textView.text, completion: { (newLocObject) in
+            self.locationPicked()
+        })
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -105,5 +117,11 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 
 }
