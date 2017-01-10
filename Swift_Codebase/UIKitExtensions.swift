@@ -420,6 +420,10 @@ extension UIViewController {
         }
     }
     
+    func showQuickAlert(target: UIViewController, msg: String, okAction: (okAlertAction: UIAlertAction) -> Void) {
+        self.showAlertWithOptions(target, alertTitle: "提醒", msg: msg, okAction: okAction, usingCancel: false)
+    }
+    
     func showAlertWithOptions(target: UIViewController, alertTitle:String, msg:String, alertAction:(alertAction: Bool)->Void, usingCancel: Bool) {
         
         let alert = UIAlertController(title: alertTitle, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
