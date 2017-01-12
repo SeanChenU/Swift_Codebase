@@ -75,8 +75,13 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate, UIText
         self.mapView.delegate = self
         
         LocationMaster.sharedInstance.locationUpdated = { location in
-            if !self.flag_mapAnimated {
+            if !self.flag_mapAnimated { // First time
                 self.mapView.animateToCameraPosition(GMSCameraPosition.cameraWithTarget(location!.coordinate, zoom: 14))
+                
+                LocationMaster.sharedInstance.reverseGeocodeMyLocation({ (locationObject) in
+                    self.addressLabel.text = locationObject?.address
+                })
+                
                 self.flag_mapAnimated = true
             } else {
             
