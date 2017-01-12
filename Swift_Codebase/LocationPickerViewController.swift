@@ -80,6 +80,7 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate, UIText
                 
                 LocationMaster.sharedInstance.reverseGeocodeMyLocation({ (locationObject) in
                     self.addressLabel.text = locationObject?.address
+                    self.currentLocObject = locationObject
                 })
                 
                 self.flag_mapAnimated = true
@@ -100,6 +101,7 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate, UIText
         let loc = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
         LocationMaster.sharedInstance.reverseGeocode(loc) { (locationObject) in
             if let _locationObject = locationObject {
+                
                 print(_locationObject.address)
                 self.addressLabel.text = _locationObject.address
                 
