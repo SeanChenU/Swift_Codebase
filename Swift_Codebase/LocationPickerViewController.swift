@@ -102,7 +102,7 @@ class LocationPickerViewController: UIViewController, GMSMapViewDelegate, UIText
         LocationMaster.sharedInstance.reverseGeocode(loc) { (locationObject) in
             if let _locationObject = locationObject {
                 
-                print(_locationObject.address)
+                print("LocationPicker: \(_locationObject.addressSingleLine)")
                 self.addressLabel.text = _locationObject.address
                 
                 self.currentLocObject = locationObject

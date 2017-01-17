@@ -44,7 +44,7 @@ class LocationObject: NSObject {
     }
     
     internal func toDict() -> [String: AnyObject] {
-        return ["text": self.address, "loc": ["lat": self.coordinate.latitude, "lng": self.coordinate.longitude]]
+        return ["text": self.addressSingleLine, "loc": ["lat": self.coordinate.latitude, "lng": self.coordinate.longitude]]
     }
     
     internal func toJSONString() -> String? {
