@@ -9,9 +9,11 @@
 import ActionKit
 
 class HoverButton: UIButton {
+    
+    var isHighlightedButton: Bool = true
     override var highlighted: Bool {
         didSet {
-            if self.highlighted {
+            if self.isHighlightedButton {
                 self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.1)
             } else {
                 self.backgroundColor = UIColor.clearColor()

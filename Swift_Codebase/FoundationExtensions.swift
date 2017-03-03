@@ -46,6 +46,11 @@ extension String {
         return randomString as String
     }
     
+    func replanceBlankSpace() -> String {
+        
+        return self.stringByReplacingOccurrencesOfString(" ", withString: "\n", options: NSStringCompareOptions(rawValue: 0), range: nil)
+    }
+    
 }
 
 extension String {
@@ -85,6 +90,14 @@ extension String {
         
     }
     
+}
+
+extension String {
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.max)
+        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        return boundingBox.height
+    }
 }
 
 extension Array {
